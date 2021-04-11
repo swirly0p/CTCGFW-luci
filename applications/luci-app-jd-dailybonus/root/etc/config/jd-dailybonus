@@ -1,5 +1,5 @@
 config global
-	option version '1.98'
+	option version '2.0.1'
 	option out '0'
 	option stop '100'
 	option serverchan ''
