@@ -4,9 +4,9 @@ XHR.poll(3, '<%=url([[admin]], [[services]], [[uugamebooster]], [[status]])%>', 
 		var tb = document.getElementById('uugamebooster_status');
 		if (data && tb) {
 			if (data.running) {
-				tb.innerHTML = '<em><b><font color=green>UU Game Booster <%:RUNNING%></font></b></em>';
+				tb.innerHTML = '<em><b><font color=green>UU GameAcc <%:RUNNING%></font></b></em>';
 			} else {
-				tb.innerHTML = '<em><b><font color=red>UU Game Booster <%:NOT RUNNING%></font></b></em>';
+				tb.innerHTML = '<em><b><font color=red>UU GameAcc <%:NOT RUNNING%></font></b></em>';
 			}
 		}
 	}
