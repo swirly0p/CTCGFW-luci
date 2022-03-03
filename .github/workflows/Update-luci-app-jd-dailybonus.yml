@@ -6,12 +6,12 @@
 # <https://github.com/KFERMercer/OpenWrt-CI>
 #
 
-name: Update-luci-dnscrypt-proxy2
+name: Update-luci-app-jd-dailybonus
 
 on:
   workflow_dispatch: # 手动触发
   schedule:
-    - cron: 45 00 * * *
+    - cron: 50 00 * * *
 
 jobs:
 
@@ -47,7 +47,7 @@ jobs:
 
     - name: Apply commit changes
       run: |
-        git add ./applications/luci-app-jd-dailybonus /
+        git add ./applications/luci-app-jd-dailybonus/
         echo -e "[bot] luci-app-jd-dailybonus : update\n\nlatest commit: $(cat ./tmp/.git/refs/heads/master)" > ./tmp/message
         git commit --file="./tmp/message" --author "jerrykuku <jerrykuku@qq.com>" || exit 0
 
