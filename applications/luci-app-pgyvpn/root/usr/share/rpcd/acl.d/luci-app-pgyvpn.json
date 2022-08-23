@@ -1,0 +1,11 @@
+{
+	"luci-app-pgyvpn": {
+		"description": "Grant UCI access for luci-app-pgyvpn",
+		"read": {
+			"uci": [ "pgyvpn" ]
+		},
+		"write": {
+			"uci": [ "pgyvpn" ]
+		}
+	}
+}
