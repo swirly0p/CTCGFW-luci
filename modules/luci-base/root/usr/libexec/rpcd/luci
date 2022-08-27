@@ -214,6 +214,7 @@ local methods = {
 			rv.firewall4     = fs.access("/sbin/fw4")
 			rv.opkg          = fs.access("/bin/opkg")
 			rv.offloading    = fs.access("/sys/module/xt_FLOWOFFLOAD/refcnt") or fs.access("/sys/module/nft_flow_offload/refcnt")
+			rv.fullcone      = fs.access("/sys/module/xt_FULLCONENAT/refcnt") or fs.access("/sys/module/nft_fullcone/refcnt")
 			rv.br2684ctl     = fs.access("/usr/sbin/br2684ctl")
 			rv.swconfig      = fs.access("/sbin/swconfig")
 			rv.odhcpd        = fs.access("/usr/sbin/odhcpd")
@@ -630,6 +631,21 @@ local methods = {
 		end
 	},
 
+	getCPUInfo = {
+		call = function()
+			local sys = require "luci.sys"
+			local cpuinfo = {}
+
+			cpuinfo.cpuinfo = sys.exec("/sbin/cpuinfo")
+
+			if (cpuinfo.cpuinfo == nil) or (cpuinfo.cpuinfo == "") then
+				cpuinfo.cpuinfo = "? x ? (2.33MHz, 2.33°C)"
+			end
+
+			return cpuinfo
+		end
+	},
+
 	getCPUUsage = {
 		call = function()
 			local sys = require "luci.sys"
@@ -637,6 +653,25 @@ local methods = {
 
 			cpuusage.cpuusage = sys.exec("top -n1 | awk '/^CPU/ {printf(\"%d%\", 100 - $8)}'") or "6%"
 			return cpuusage
+		end
+	},
+
+	getETHInfo = {
+		call = function()
+			local sys = require "luci.sys"
+			local rv = json.parse(sys.exec("/sbin/ethinfo")) or {}
+
+			return { ethinfo = rv }
+		end
+	},
+
+	getTempInfo = {
+		call = function()
+			local sys = require "luci.sys"
+			local tempinfo = {}
+
+			tempinfo.tempinfo = sys.exec("/sbin/tempinfo 2>/dev/null")
+			return tempinfo
 		end
 	},
 
