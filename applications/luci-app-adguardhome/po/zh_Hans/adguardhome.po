@@ -197,6 +197,22 @@ msgstr "请在设置里填写日志路径以启用日志"
 msgid "Please change time and args in crontab"
 msgstr "请在计划任务中修改时间和参数"
 
+#: /mnt/A/openwrt-latest/package/ctcgfw/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua:268
+msgid "Choose Release Version for download"
+msgstr "选择需要更新的版本"
+
+#: /mnt/A/openwrt-latest/package/ctcgfw/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua:269
+msgid "Release(Default)"
+msgstr "正式版（默认）"
+
+#: /mnt/A/openwrt-latest/package/ctcgfw/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua:270
+msgid "Beta"
+msgstr "测试版"
+
+#: /mnt/A/openwrt-latest/package/ctcgfw/luci-app-adguardhome/luasrc/model/cbi/AdGuardHome/base.lua:271
+msgid "If this option is modified, please confirm the download links"
+msgstr "如果修改了版本选项，请自行确认下方升级用的下载链接"
+
 #: /mnt/A/openwrt-latest/package/ctcgfw/luci-app-adguardhome/luasrc/view/AdGuardHome/AdGuardHome_chpass.htm:24
 msgid "Please save/apply"
 msgstr "请提交"

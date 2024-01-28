@@ -238,7 +238,7 @@ rm_port53()
 	config_editor "dns.port" "$dnsmasq_port" "$configpath"
 	uci set dhcp.@dnsmasq[0].port="53"
 	uci commit dhcp
-	/etc/init.d/dnsmasq reload
+	/etc/init.d/dnsmasq restart
 }
 
 use_port53()
@@ -258,7 +258,7 @@ use_port53()
 	config_editor "dns.port" "53" "$configpath"
 	uci set dhcp.@dnsmasq[0].port="$AdGuardHome_PORT"
 	uci commit dhcp
-	/etc/init.d/dnsmasq reload
+	/etc/init.d/dnsmasq restart
 }
 
 do_redirect()
@@ -371,6 +371,7 @@ get_filesystem()
 
 config_editor()
 {
+	[ -n "$3" -a -f $3 ] || return
 	awk -v yaml="$1" -v value="$2" -v file="$3" -v ro="$4" '
 	BEGIN{split(yaml,part,"\.");s="";i=1;l=length(part);}
     {
@@ -540,7 +541,7 @@ start_service() {
 		_do_redirect 1
 	else
 		_do_redirect 0
-		config_get "redirect" "AdGuardHome" "redirect" "none"
+		config_get "redirect" $CONFIGURATION "redirect" "none"
 		if [ "$redirect" != "none" ]; then
 			procd_open_instance "waitconfig"
 			procd_set_param command "/usr/share/AdGuardHome/watchconfig.sh"

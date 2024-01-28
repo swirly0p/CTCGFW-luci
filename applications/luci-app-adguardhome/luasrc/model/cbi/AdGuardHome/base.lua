@@ -37,12 +37,12 @@ else
 	local version=uci:get("AdGuardHome","AdGuardHome","version")
 	local testtime=fs.stat(binpath,"mtime")
 	if testtime~=tonumber(binmtime) or version==nil then
-		local tmp=luci.sys.exec(binpath.." --version | grep -m 1 -E 'v[0-9.]+' -o ")
+		local tmp=luci.sys.exec(binpath.." --version 2>/dev/null | grep -m 1 -oE 'v[0-9.][Bbeta0-9\.\-]+'")
 		version=string.sub(tmp, 1)
 		if version=="" then version="core error" end
 		uci:set("AdGuardHome","AdGuardHome","version",version)
 		uci:set("AdGuardHome","AdGuardHome","binmtime",testtime)
-		uci:save("AdGuardHome")
+		uci:commit("AdGuardHome")
 	end
 	e=version..e
 end
@@ -160,12 +160,17 @@ end
 o = s:option(Flag, "verbose", translate("Verbose log"))
 o.default = 0
 o.optional = true
----- gfwlist
-local a=luci.sys.call("grep -m 1 -q programadd "..configpath)
-if (a==0) then
-a="Added"
+---- gfwlist 
+local a
+if fs.access(configpath) then
+	a=luci.sys.call("grep -m 1 -q programadd "..configpath)
 else
-a="Not added"
+	a=1
+end
+if (a==0) then
+	a="Added"
+else
+	a="Not added"
 end
 o=s:option(Button,"gfwdel",translate("Del gfwlist"),translate(a))
 o.optional = true
@@ -264,6 +269,14 @@ o.widget = "checkbox"
 o.default = nil
 o.optional=true
 
+----downloadtarge
+o = s:option(ListValue, "tagname", translate("Choose Release Version for download"))
+o:value("release",translate("Release(Default)"))
+o:value("beta",translate("Beta"))
+o.description=translate("If this option is modified, please confirm the download links")
+o.default="release"
+o.rmempty=true
+
 ----downloadpath
 o = s:option(TextValue, "downloadlinks",translate("Download links for update"))
 o.optional = false
@@ -298,7 +311,7 @@ function m.on_commit(map)
 				uci:set("AdGuardHome","AdGuardHome","ucitracktest","2")
 			end
 		end
-		uci:save("AdGuardHome")
+		uci:commit("AdGuardHome")
 	end
 end
 return m
