@@ -22,21 +22,21 @@ function count_changes(section_id) {
 
 function render_radio_badge(radioDev) {
 	return E('span', { 'class': 'ifacebadge' }, [
-		E('img', { 'src': L.resource('icons/wifi%s.png').format(radioDev.isUp() ? '' : '_disabled') }),
+		E('img', { 'src': L.resource('icons/wifi%s.svg').format(radioDev.isUp() ? '' : '_disabled') }),
 		' ',
 		radioDev.getName()
 	]);
 }
 
 function render_signal_badge(signalPercent, signalValue, noiseValue, wrap, mode) {
-	let icon = L.resource('icons/signal-75-100.png'), title, value;
+	let icon = L.resource('icons/signal-075-100.svg'), title, value;
 
 	switch(true) {
-	case(signalPercent  < 0): icon = L.resource('icons/signal-none.png'); 	break;
-	case(signalPercent == 0): icon = L.resource('icons/signal-0.png');		break;
-	case(signalPercent < 25): icon = L.resource('icons/signal-0-25.png'); 	break;
-	case(signalPercent < 50): icon = L.resource('icons/signal-25-50.png');	break;
-	case(signalPercent < 75): icon = L.resource('icons/signal-50-75.png');	break;
+	case(signalPercent  < 0): icon = L.resource('icons/signal-none.svg'); 	break;
+	case(signalPercent == 0): icon = L.resource('icons/signal-000-000.svg');		break;
+	case(signalPercent < 25): icon = L.resource('icons/signal-000-025.svg'); 	break;
+	case(signalPercent < 50): icon = L.resource('icons/signal-025-050.svg');	break;
+	case(signalPercent < 75): icon = L.resource('icons/signal-050-075.svg');	break;
 	}
 
 	if (signalValue) {
@@ -145,8 +145,8 @@ function render_network_status(radioNet) {
 	return L.itemlist(E('div'), [
 		is_mesh ? _('Mesh ID') : _('SSID'), (is_mesh ? radioNet.getMeshID() : radioNet.getSSID()) ?? '?',
 		_('Mode'),       mode,
-		_('BSSID'),      (!changecount && is_assoc) ? bssid : '',
-		_('Encryption'), (!changecount && is_assoc) ? radioNet.getActiveEncryption() ?? _('None') : '',
+		_('BSSID'),      (!changecount && is_assoc) ? bssid : null,
+		_('Encryption'), (!changecount && is_assoc) ? radioNet.getActiveEncryption() ?? _('None') : null,
 		'',            status_text
 	], [ ' | ', E('br') ]);
 }
@@ -189,37 +189,26 @@ function render_modal_status(node, radioNet) {
 
 function format_wifirate(rate) {
 	let s = `${rate.rate / 1000}\xa0${_('Mbit/s')}, ${rate.mhz}\xa0${_('MHz')}`;
-	const ht = rate.ht;
-	const vht = rate.vht;
-	const nss = rate.nss;
-	const mcs = rate.mcs;
-	const sgi = rate.short_gi;
-	const he = rate.he;
-	const he_gi = rate.he_gi;
-	const he_dcm = rate.he_dcm;
-	const eht = rate?.eht ?? false;
-	const eht_gi = rate?.eht_gi ?? 0;
-	const eht_dcm = rate?.eht_dcm ?? 0;
 
-	if (ht || vht) s += [
-		vht && `, VHT-MCS\xa0${mcs}`,
-		nss && `, VHT-NSS\xa0${nss}`,
-		ht  && `, MCS\xa0${mcs}`,
-		sgi && ', ' + _('Short GI').replace(/ /g, '\xa0')
+	if (rate?.ht || rate?.vht) s += [
+		rate?.vht && `, VHT-MCS\xa0${rate?.mcs}`,
+		rate?.nss && `, VHT-NSS\xa0${rate?.nss}`,
+		rate?.ht  && `, MCS\xa0${rate?.mcs}`,
+		rate?.short_gi && ', ' + _('Short GI').replace(/ /g, '\xa0')
 	].filter(Boolean).join('');
 
-	if (he) s += [
-		`, HE-MCS\xa0${mcs}`,
-		nss    && `, HE-NSS\xa0${nss}`,
-		he_gi  && `, HE-GI\xa0${he_gi}`,
-		he_dcm && `, HE-DCM\xa0${he_dcm}`
+	if (rate?.he) s += [
+		`, HE-MCS\xa0${rate?.mcs}`,
+		rate?.nss    && `, HE-NSS\xa0${rate?.nss}`,
+		rate?.he_gi  && `, HE-GI\xa0${rate?.he_gi}`,
+		rate?.he_dcm && `, HE-DCM\xa0${rate?.he_dcm}`
 	].filter(Boolean).join('');
 
-	if (eht) s += [
-		`, EHT-MCS\xa0${mcs}`,
-		nss    && `, EHT-NSS\xa0${nss}`,
-		he_gi  && `, EHT-GI\xa0${eht_gi}`,
-		he_dcm && `, EHT-DCM\xa0${eht_dcm}`
+	if (rate?.eht) s += [
+		`, EHT-MCS\xa0${rate?.mcs}`,
+		rate?.nss    && `, EHT-NSS\xa0${rate?.nss}`,
+		rate?.eht_gi  && `, EHT-GI\xa0${rate?.eht_gi}`,
+		rate?.eht_dcm && `, EHT-DCM\xa0${rate?.eht_dcm}`
 	].filter(Boolean).join('');
 
 	return s;
@@ -719,7 +708,7 @@ return view.extend({
 					'data-ssid': bss.network.getSSID()
 				}, [
 					E('img', {
-						'src': L.resource('icons/wifi%s.png').format(bss.network.isUp() ? '' : '_disabled'),
+						'src': L.resource('icons/wifi%s.svg').format(bss.network.isUp() ? '' : '_disabled'),
 						'title': bss.radio.getI18n()
 					}),
 					E('span', [
@@ -1561,6 +1550,9 @@ return view.extend({
 				o = ss.taboption('encryption', form.Flag, 'vlan_naming', _('RADIUS VLAN Naming'), _('Off: <code>vlanXXX</code>, e.g., <code>vlan1</code>. On: <code>vlan_tagged_interface.XXX</code>, e.g. <code>eth0.1</code>.'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'] });
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['psk', 'psk2', 'psk+psk2', 'psk-mixed'], ppsk: ['1'] });
+				o.enabled = '1';
+				o.disabled = '0';
+				o.default = o.enabled;
 
 				o = ss.taboption('encryption', widgets.DeviceSelect, 'vlan_tagged_interface', _('RADIUS VLAN Tagged Interface'), _('E.g. eth0, eth1'));
 				add_dependency_permutations(o, { mode: ['ap', 'ap-wds'], encryption: ['wpa', 'wpa2', 'wpa3', 'wpa3-mixed', 'wpa3-192'] });
