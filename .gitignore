@@ -1,3 +1,4 @@
+.DS_Store
 dist/
 node_modules/
 /host
@@ -17,5 +18,4 @@ modules/luci-compat/src/plural_formula.c
 modules/luci-compat/src/plural_formula.h
 docs/jsapi/*
 !docs/jsapi/README.md
-.DS_Store
 **eslint.config**
