@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-10-07 07:28+0000\n"
+"PO-Revision-Date: 2025-10-10 05:14+0000\n"
 "Last-Translator: CRISTIAN ANDREI <cristianvdr@gmail.com>\n"
 "Language-Team: Romanian <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsadblock/ro/>\n"
@@ -25,7 +25,7 @@ msgstr ""
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:549
 msgid "1Hosts List Selection"
-msgstr ""
+msgstr "Selectarea Listei 1Hosts"
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/feeds.js:221
 msgid "<ADBLOCK-PLUS>"
@@ -50,6 +50,10 @@ msgstr "Fluxuri active"
 #: applications/luci-app-adblock/root/usr/share/luci/menu.d/luci-app-adblock.json:3
 msgid "Adblock"
 msgstr "Blocarea anunțurilor"
+
+#: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/logread.js:4
+msgid "Adblock Log"
+msgstr ""
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:47
 msgid "Add Allowlist Domain"
@@ -139,8 +143,8 @@ msgid ""
 "Block all requests of certain DNS clients based on their IP address (RPZ-"
 "CLIENT-IP)."
 msgstr ""
-"Blocați toate solicitările anumitor clienți DNS pe baza adresei lor IP "
-"(RPZ-CLIENT-IP)."
+"Blocați toate solicitările anumitor clienți DNS pe baza adresei lor IP (RPZ-"
+"CLIENT-IP)."
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:369
 msgid "Blocked DNS Requests"
@@ -182,6 +186,10 @@ msgid ""
 "domains except those listed in the allowlist. You can use this restrictive "
 "blocklist e.g. for guest wifi or kidsafe configurations."
 msgstr ""
+"Construiește o listă de blocare DNS restrictivă suplimentară pentru a bloca "
+"accesul la toate domeniile, cu excepția celor listate în lista de "
+"permisiuni. Puteți utiliza această listă restrictivă de blocare, de exemplu, "
+"pentru configurații wifi pentru oaspeți sau pentru copii."
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:23
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:58
@@ -189,7 +197,7 @@ msgstr ""
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:177
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:222
 msgid "Cancel"
-msgstr "Anulare"
+msgstr "Anulați"
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:504
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:519
@@ -363,6 +371,9 @@ msgid ""
 "domains. This requires external requests to get the map tiles and "
 "geolocation data."
 msgstr ""
+"Activați o hartă GeoIP care arată locația geografică a domeniilor blocate. "
+"Acest lucru necesită solicitări externe pentru a obține dale hărții și "
+"datele de geolocalizare."
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:221
 msgid "Enable the adblock service."
@@ -462,7 +473,7 @@ msgstr "Setări Generale"
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:430
 msgid "GeoIP Map"
-msgstr ""
+msgstr "Harta GeoIP"
 
 #: applications/luci-app-adblock/root/usr/share/rpcd/acl.d/luci-app-adblock.json:3
 msgid "Grant access to LuCI app adblock"
@@ -568,7 +579,7 @@ msgstr ""
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:400
 msgid "No GeoIP Map data!"
-msgstr ""
+msgstr "Fără date de hartă GeoIP!"
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/dnsreport.js:125
 msgid "No Query results!"
@@ -955,7 +966,7 @@ msgstr "smartdns"
 
 #: applications/luci-app-adblock/htdocs/luci-static/resources/view/adblock/overview.js:336
 msgid "unbound"
-msgstr "dezlegat"
+msgstr "fără legătură"
 
 #~ msgid "Base Temp Directory"
 #~ msgstr "Directorul Temp de bază"

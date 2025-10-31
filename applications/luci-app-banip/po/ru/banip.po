@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-09-28 18:37+0000\n"
+"PO-Revision-Date: 2025-10-27 15:04+0000\n"
 "Last-Translator: SnIPeRSnIPeR <snipersniper@users.noreply.hosted.weblate.org>"
 "\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/openwrt/"
@@ -8,9 +8,10 @@ msgstr ""
 "Language: ru\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Weblate 5.14-dev\n"
+"Plural-Forms: nplurals=3; plural="
+"(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? "
+"1 : 2);\n"
+"X-Generator: Weblate 5.14.1-dev\n"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:642
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:711
@@ -1284,6 +1285,14 @@ msgstr "автоматическое добавление IP-адресов в �
 msgid "banIP"
 msgstr "banIP"
 
+#: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/processing_log.js:4
+msgid "banIP Log"
+msgstr "Журнал banIP"
+
+#: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/firewall_log.js:4
+msgid "banIP firewall Log"
+msgstr "Журнал брандмауэра banIP"
+
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:264
 msgid "blocked icmp-flood packets"
 msgstr "заблокированные пакеты icmp-flood"
@@ -1314,7 +1323,7 @@ msgstr "отладка"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:497
 msgid "drop"
-msgstr "отбрасывание"
+msgstr "отбрасывать"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:634
 msgid "dropbear failed login"

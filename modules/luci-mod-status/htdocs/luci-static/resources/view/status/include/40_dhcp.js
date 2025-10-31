@@ -16,12 +16,6 @@ var callUfpList = rpc.declare({
 	method: 'fingerprint',
 });
 
-var checkUfpInstalled = rpc.declare({
-	object: 'file',
-	method: 'stat',
-	params: [ 'path' ]
-});
-
 return baseclass.extend({
 	title: '',
 
@@ -30,17 +24,11 @@ return baseclass.extend({
 
 	load: function() {
 		return Promise.all([
-			checkUfpInstalled('/usr/sbin/ufpd')
-		]).then(data => {
-			var promises = [
-				callLuciDHCPLeases(),
-				network.getHostHints(),
-				data[0].type === 'file' ? callUfpList() : null,
-				L.resolveDefault(uci.load('dhcp'))
-			];
-
-			return Promise.all(promises);
-		});
+			callLuciDHCPLeases(),
+			network.getHostHints(),
+			L.hasSystemFeature('ufpd') ? callUfpList() : null,
+			L.resolveDefault(uci.load('dhcp'))
+		]);
 	},
 
 	handleCreateStaticLease: function(lease, ev) {
@@ -63,11 +51,17 @@ return baseclass.extend({
 		ev.currentTarget.disabled = true;
 		ev.currentTarget.blur();
 
-		var cfg = uci.add('dhcp', 'host'),
-		    ip6arr = lease.ip6addrs[0] ? validation.parseIPv6(lease.ip6addrs[0]) : null;
+		const cfg = uci.add('dhcp', 'host');
+		const ip6addr = lease.ip6addrs?.[0]?.replace(/\/128$/, '');
+		const ip6arr = ip6addr ? validation.parseIPv6(ip6addr) : null;
+
+		// Combine DUID and IAID if both available
+		let duid_iaid = lease.duid ? lease.duid.toUpperCase() : null;
+		if (duid_iaid && lease.iaid)
+			duid_iaid += `%${lease.iaid}`;
 
 		uci.set('dhcp', cfg, 'name', lease.hostname);
-		uci.set('dhcp', cfg, 'duid', lease.duid.toUpperCase());
+		uci.set('dhcp', cfg, 'duid', duid_iaid);
 		uci.set('dhcp', cfg, 'mac', [lease.macaddr]);
 		if (ip6arr)
 			uci.set('dhcp', cfg, 'hostid', (ip6arr[6] * 0xFFFF + ip6arr[7]).toString(16));
@@ -158,7 +152,7 @@ return baseclass.extend({
 		var table6 = E('table', { 'id': 'status_leases6', 'class': 'table leases6' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
 				E('th', { 'class': 'th' }, _('Host')),
-				E('th', { 'class': 'th' }, _('IPv6 address')),
+				E('th', { 'class': 'th' }, _('IPv6 addresses')),
 				E('th', { 'class': 'th' }, _('DUID')),
 				E('th', { 'class': 'th' }, _('IAID')),
 				E('th', { 'class': 'th' }, _('Lease time remaining')),

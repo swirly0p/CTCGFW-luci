@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-10-05 13:02+0000\n"
-"Last-Translator: rostmodern <weblate@kurs.33mail.com>\n"
+"PO-Revision-Date: 2025-10-13 22:04+0000\n"
+"Last-Translator: Blubberland <github@alias.kardansch.de>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/openwrt/"
 "luciapplicationsbanip/de/>\n"
 "Language: de\n"
@@ -366,7 +366,7 @@ msgstr "Während des Downloads keine SSL-Serverzertifikate überprüfen."
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/feeds.js:302
 msgid "Download"
-msgstr "Herunterladen"
+msgstr "Download"
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/overview.js:308
 msgid "Download Insecure"
@@ -1287,6 +1287,14 @@ msgstr "automatisch hinzugefügte IPs auf die Sperrliste"
 #: applications/luci-app-banip/root/usr/share/luci/menu.d/luci-app-banip.json:3
 msgid "banIP"
 msgstr "banIP"
+
+#: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/processing_log.js:4
+msgid "banIP Log"
+msgstr ""
+
+#: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/firewall_log.js:4
+msgid "banIP firewall Log"
+msgstr ""
 
 #: applications/luci-app-banip/htdocs/luci-static/resources/view/banip/setreport.js:264
 msgid "blocked icmp-flood packets"
