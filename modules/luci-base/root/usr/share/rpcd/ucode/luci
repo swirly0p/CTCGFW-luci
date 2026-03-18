@@ -3,7 +3,7 @@
 
 'use strict';
 
-import { stdin, access, dirname, basename, open, popen, glob, lsdir, readfile, readlink, error } from 'fs';
+import { stdin, access, dirname, basename, open, popen, glob, lsdir, readfile, readlink, realpath, error } from 'fs';
 import { connect } from 'ubus';
 import { cursor } from 'uci';
 
