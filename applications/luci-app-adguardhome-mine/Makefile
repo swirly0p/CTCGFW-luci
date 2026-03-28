@@ -5,7 +5,7 @@
 
 include $(TOPDIR)/rules.mk
 
-PKG_NAME:=luci-app-adguardhome
+PKG_NAME:=luci-app-adguardhome-mine
 PKG_VERSION:=1.9
 PKG_RELEASE:=13
 PKG_MAINTAINER:=<https://github.com/rufengsuixing/luci-app-adguardhome>
@@ -23,12 +23,12 @@ endef
 
 PKG_CONFIG_DEPENDS:= CONFIG_PACKAGE_$(PKG_NAME)_INCLUDE_binary
 
-define Package/luci-app-adguardhome/conffiles
+define Package/luci-app-adguardhome-mine/conffiles
 /usr/share/AdGuardHome/links.txt
 /etc/config/AdGuardHome
 endef
 
-define Package/luci-app-adguardhome/postinst
+define Package/luci-app-adguardhome-mine/postinst
 #!/bin/sh
 	/etc/init.d/AdGuardHome enable >/dev/null 2>&1
 	enable=$(uci get AdGuardHome.AdGuardHome.enabled 2>/dev/null)
@@ -40,7 +40,7 @@ define Package/luci-app-adguardhome/postinst
 exit 0
 endef
 
-define Package/luci-app-adguardhome/prerm
+define Package/luci-app-adguardhome-mine/prerm
 #!/bin/sh
 if [ -z "$${IPKG_INSTROOT}" ]; then
      /etc/init.d/AdGuardHome disable
